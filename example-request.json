@@ -1,0 +1,343 @@
+{
+  "input": {
+    "workflow": {
+      "6": {
+        "inputs": {
+          "text": "A bustling high school rooftop at sunset, where a teenage girl in a navy-blue gakuran uniform leans against the chain-link fence, gazing at the distant city skyline. Cherry blossom petals swirl around her, catching the golden light as her long hair flutters in the wind. Below, students chat and laugh on the sports field, their uniforms bright against the warm hues of dusk. A stray calico cat naps on a nearby bench, its tail twitching as the girl sighs softly, lost in thought. Style: Kyoto Animation-inspired with soft watercolor backgrounds, expressive character emotions, and delicate lighting effects.",
+          "clip": [
+            "189",
+            0
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIPTextEncode"
+        }
+      },
+      "7": {
+        "inputs": {
+          "text": "",
+          "clip": [
+            "189",
+            0
+          ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+          "title": "CLIPTextEncode"
+        }
+      },
+      "11": {
+        "inputs": {
+          "value": 3.5,
+          "conditioning": [
+            "6",
+            0
+          ]
+        },
+        "class_type": "FluxGuidance",
+        "_meta": {
+          "title": "FluxGuidance"
+        }
+      },
+      "27": {
+        "inputs": {
+          "filename": "ae.safetensors"
+        },
+        "class_type": "VAELoader",
+        "_meta": {
+          "title": "VAELoader"
+        }
+      },
+      "51": {
+        "inputs": {
+          "seed": 287556215358956,
+          "steps": 20,
+          "cfg": 1,
+          "sampler_name": "dpmpp_2m",
+          "scheduler": "karras",
+          "denoise": 0.8000000000000002,
+          "model": [
+            "154",
+            0
+          ],
+          "positive": [
+            "11",
+            0
+          ],
+          "negative": [
+            "7",
+            0
+          ],
+          "latent_image": [
+            "110",
+            0
+          ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "KSampler"
+        }
+      },
+      "100": {
+        "inputs": {
+          "upscale_model": [
+            "101",
+            0
+          ],
+          "image": [
+            "168",
+            0
+          ]
+        },
+        "class_type": "ImageUpscaleWithModel",
+        "_meta": {
+          "title": "ImageUpscaleWithModel"
+        }
+      },
+      "101": {
+        "inputs": {
+          "model_name": "4x_NMKD-Siax_200k.pth"
+        },
+        "class_type": "UpscaleModelLoader",
+        "_meta": {
+          "title": "UpscaleModelLoader"
+        }
+      },
+      "102": {
+        "inputs": {
+          "text": "lanczos",
+          "image": [
+            "100",
+            0
+          ]
+        },
+        "class_type": "ImageScaleBy",
+        "_meta": {
+          "title": "ImageScaleBy"
+        }
+      },
+      "110": {
+        "inputs": {
+          "pixels": [
+            "102",
+            0
+          ],
+          "vae": [
+            "27",
+            0
+          ]
+        },
+        "class_type": "VAEEncode",
+        "_meta": {
+          "title": "VAEEncode"
+        }
+      },
+      "111": {
+        "inputs": {
+          "samples": [
+            "51",
+            0
+          ],
+          "vae": [
+            "27",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "144": {
+        "inputs": {
+          "anything": [
+            "184",
+            0
+          ]
+        },
+        "class_type": "easy cleanGpuUsed",
+        "_meta": {
+          "title": "easy cleanGpuUsed"
+        }
+      },
+      "154": {
+        "inputs": {
+          "text": "Mixture of Diffusers",
+          "model": [
+            "188",
+            0
+          ]
+        },
+        "class_type": "TiledDiffusion",
+        "_meta": {
+          "title": "TiledDiffusion"
+        }
+      },
+      "156": {
+        "inputs": {},
+        "class_type": "Label (rgthree)",
+        "_meta": {
+          "title": "Denoise between 0.7-0.95"
+        }
+      },
+      "162": {
+        "inputs": {
+          "width": 512,
+          "height": 16,
+          "batch_size": 1
+        },
+        "class_type": "EmptySD3LatentImage",
+        "_meta": {
+          "title": "EmptySD3LatentImage"
+        }
+      },
+      "163": {
+        "inputs": {
+          "seed": 501,
+          "steps": 20,
+          "cfg": 1,
+          "sampler_name": "dpmpp_2m",
+          "scheduler": "sgm_uniform",
+          "denoise": 1,
+          "model": [
+            "188",
+            0
+          ],
+          "positive": [
+            "11",
+            0
+          ],
+          "negative": [
+            "7",
+            0
+          ],
+          "latent_image": [
+            "162",
+            0
+          ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "KSampler"
+        }
+      },
+      "164": {
+        "inputs": {
+          "samples": [
+            "163",
+            0
+          ],
+          "vae": [
+            "27",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "168": {
+        "inputs": {
+          "anything": [
+            "164",
+            0
+          ]
+        },
+        "class_type": "easy cleanGpuUsed",
+        "_meta": {
+          "title": "easy cleanGpuUsed"
+        }
+      },
+      "169": {
+        "inputs": {},
+        "class_type": "Fast Groups Muter (rgthree)",
+        "_meta": {
+          "title": "Enable Upscaler?"
+        }
+      },
+      "170": {
+        "inputs": {
+          "filename_prefix": "2K",
+          "images": [
+            "184",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "Save Image UPSCALED 2K"
+        }
+      },
+      "171": {
+        "inputs": {
+          "filename_prefix": "img",
+          "images": [
+            "164",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "Save Image Original"
+        }
+      },
+      "174": {
+        "inputs": {},
+        "class_type": "Label (rgthree)",
+        "_meta": {
+          "title": "!!! Change the seed manually"
+        }
+      },
+      "180": {
+        "inputs": {},
+        "class_type": "Label (rgthree)",
+        "_meta": {
+          "title": "Flux txt2img with Upscaler"
+        }
+      },
+      "184": {
+        "inputs": {
+          "upscale_method": "lanczos",
+          "width": 2560,
+          "height": 1440,
+          "crop": "center",
+          "image": [
+            "111",
+            0
+          ]
+        },
+        "class_type": "ImageScale",
+        "_meta": {
+          "title": "ImageScale"
+        }
+      },
+      "185": {
+        "inputs": {},
+        "class_type": "Label (rgthree)",
+        "_meta": {
+          "title": "2K Landscape | 2560x1440px | 16:9"
+        }
+      },
+      "188": {
+        "inputs": {
+          "filename": "svdq-int4_r32-flux.1-dev.safetensors"
+        },
+        "class_type": "NunchakuFluxDiTLoader",
+        "_meta": {
+          "title": "NunchakuFluxDiTLoader"
+        }
+      },
+      "189": {
+        "inputs": {
+          "filename": "flux.1"
+        },
+        "class_type": "NunchakuTextEncoderLoaderV2",
+        "_meta": {
+          "title": "NunchakuTextEncoderLoaderV2"
+        }
+      }
+    }
+  }
+}
