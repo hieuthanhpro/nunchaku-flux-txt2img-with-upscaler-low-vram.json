@@ -1,6 +1,10 @@
 # clean base image containing only comfyui, comfy-cli and comfyui-manager
 FROM runpod/worker-comfyui:5.5.1-base
-
+RUN python -VV
+RUN pip -V
+RUN python -c "import torch; print(torch.__version__)"
+RUN pip install -vvv --no-cache-dir \
+  https://github.com/nunchaku-tech/nunchaku/releases/download/v1.0.0/nunchaku-1.0.0+torch2.5-cp310-cp310-linux_x86_64.whl            
 # install custom nodes into comfyui (first node with --mode remote to fetch updated cache)
 RUN comfy node install --exit-on-fail comfyui-easy-use@1.3.5 --mode remote
 RUN comfy node install --exit-on-fail ComfyUI-TiledDiffusion
@@ -12,12 +16,8 @@ RUN comfy node install --exit-on-fail ComfyUI-nunchaku@1.2.0
 # Could not resolve unknown_registry node 'Label (rgthree)' - no aux_id provided, skipped
 # Could not resolve unknown_registry node 'MarkdownNote' - no aux_id provided, skipped
 # Could not resolve unknown_registry node 'Fast Groups Muter (rgthree)' - no aux_id provided, skipped
-RUN set -eux; \
-  python -VV; \
-  pip -V; \
-  python -c "import torch; print('torch', torch.__version__)"; \
-  pip install -v --no-cache-dir \
-    https://github.com/nunchaku-tech/nunchaku/releases/download/v1.0.0/nunchaku-1.0.0+torch2.5-cp310-cp310-linux_x86_64.whl
+
+
 
 # download models into comfyui
 RUN comfy model download --url https://huggingface.co/gemasai/4x_NMKD-Siax_200k/resolve/main/4x_NMKD-Siax_200k.pth --relative-path models/upscale_models --filename 4x_NMKD-Siax_200k.pth
