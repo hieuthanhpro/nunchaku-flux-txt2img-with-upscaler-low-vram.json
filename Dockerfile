@@ -3,8 +3,15 @@ FROM runpod/worker-comfyui:5.5.1-base
 RUN python -VV
 RUN pip -V
 RUN python -c "import torch; print(torch.__version__)"
-RUN pip install --no-cache-dir \
-  https://github.com/nunchaku-tech/nunchaku/releases/download/v1.2.0/nunchaku-1.2.0+torch2.11-cp312-cp312-linux_x86_64.whl
+# RUN pip install --no-cache-dir \
+#   https://github.com/nunchaku-tech/nunchaku/releases/download/v1.2.0/nunchaku-1.2.0+torch2.11-cp312-cp312-linux_x86_64.whl
+
+  # install comfyui-nunchaku custom node (ĐÚNG PATH)
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /workspace/ComfyUI/custom_nodes && \
+    cd /workspace/ComfyUI/custom_nodes && \
+    git clone https://github.com/nunchaku-tech/ComfyUI-nunchaku.git
  
 # install custom nodes into comfyui (first node with --mode remote to fetch updated cache)
 RUN comfy node install --exit-on-fail comfyui-easy-use@1.3.5 --mode remote
