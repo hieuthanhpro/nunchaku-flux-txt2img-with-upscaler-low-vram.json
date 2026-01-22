@@ -12,7 +12,9 @@ RUN comfy node install --exit-on-fail ComfyUI-nunchaku@1.2.0
 # Could not resolve unknown_registry node 'Label (rgthree)' - no aux_id provided, skipped
 # Could not resolve unknown_registry node 'MarkdownNote' - no aux_id provided, skipped
 # Could not resolve unknown_registry node 'Fast Groups Muter (rgthree)' - no aux_id provided, skipped
-
+RUN python -V && pip -V && python -c "import torch; print('torch', torch.__version__)"
+RUN pip install --no-cache-dir \
+    https://github.com/nunchaku-tech/nunchaku/releases/download/v1.0.0/nunchaku-1.0.0+torch2.5-cp310-cp310-linux_x86_64.whl
 # download models into comfyui
 RUN comfy model download --url https://huggingface.co/gemasai/4x_NMKD-Siax_200k/resolve/main/4x_NMKD-Siax_200k.pth --relative-path models/upscale_models --filename 4x_NMKD-Siax_200k.pth
 RUN comfy model download --url https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors --relative-path models/vae --filename ae.safetensors
