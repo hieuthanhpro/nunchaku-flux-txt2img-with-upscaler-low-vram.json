@@ -11,8 +11,8 @@ RUN pip install --no-cache-dir \
   https://github.com/nunchaku-tech/nunchaku/releases/download/v1.2.0/nunchaku-1.2.0+torch2.11-cp312-cp312-linux_x86_64.whl
 
 # 2) Cài ComfyUI-nunchaku đúng PATH ComfyUI đang chạy
-RUN mkdir -p /workspace/ComfyUI/custom_nodes && \
-    cd /workspace/ComfyUI/custom_nodes && \
+RUN mkdir -p /comfyui/custom_nodes && \
+    cd /comfyui/custom_nodes && \
     git clone https://github.com/nunchaku-tech/ComfyUI-nunchaku.git
 
 # (optional) nếu repo có requirements thì cài
